@@ -5,13 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FlightDeals.Core.Models;
+using FlightDeals.Services.Interfaces;
 
 namespace FlightDeals.Features.Home
 {
-    public class HomeController : Controller
+    public class HomeController : Controller        
     {
+        private readonly IFlightOffersSearchClient flightOffers;
+
+        public HomeController(IFlightOffersSearchClient flightOffers)
+        {
+            this.flightOffers = flightOffers;
+        }
         public IActionResult Index()
         {
+            var result = flightOffers.GetFlightOffers().Result;
             return View();
         }
 

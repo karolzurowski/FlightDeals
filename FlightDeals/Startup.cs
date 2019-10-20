@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FlightDeals.Services.Interfaces;
+using FlightDeals.Services;
+using System.Net.Http.Headers;
 
 namespace FlightDeals
 {
@@ -32,9 +35,9 @@ namespace FlightDeals
             });
 
 
-            services.AddMvc(o=>
+            services.AddMvc(o =>
             o.Conventions.Add(new FeatureConvention()))
-            .AddRazorOptions(o=>
+            .AddRazorOptions(o =>
             {
                 //{0} - action,   {1} - controller ,    {2} - area, {3} - feature
                 o.ViewLocationFormats.Clear();
@@ -42,8 +45,14 @@ namespace FlightDeals
                 o.ViewLocationFormats.Add("/Features/{3}/{0}.cshtml");
                 o.ViewLocationFormats.Add("/Features/Shared/{0}.cshtml");
                 o.ViewLocationExpanders.Add(new FeatureViewLocationExpander());
-            }) 
+            })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddHttpClient<IFlightOffersSearchClient, FlightOffersSearchClient>(
+                client =>
+                {
+                    client.BaseAddress = new Uri("https://test.api.amadeus.com/");   
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
