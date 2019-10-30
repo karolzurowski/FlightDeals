@@ -6,19 +6,19 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.Extensions.Configuration;
+using FlightDeals.Core.Models.FlightSearch;
 
 namespace FlightDeals.Services
 {
-    public class FlightOffersSearchClient : IFlightOffersSearchClient
+    public class FlightOffersClient : IFlightOffersClient
     {
         private DateTime tokenExpiration;
         private string token;
         private readonly HttpClient client;
         private readonly IConfiguration configuration;
 
-        public FlightOffersSearchClient(HttpClient client,IConfiguration configuration)
+        public FlightOffersClient(HttpClient client, IConfiguration configuration)
         {
             this.client = client;
             this.configuration = configuration;
@@ -35,12 +35,15 @@ namespace FlightDeals.Services
 
         private async Task GetToken()
         {
-            //todo read this from cfg file
+            //using user-secrets
+            var client_id = configuration["Authentication:client_id"];
+            var client_secret = configuration["Authentication:client_secret"];
+           
             var credentials = new Dictionary<string, string>()
             {
                 { "grant_type","client_credentials" },
-                { "client_id","pji5a33tciu3l5SdDkHRhy7ffxGfqHBX"},
-                { "client_secret","yKKvmrOnLVK49tVX" }
+                { "client_id",client_id},
+                { "client_secret",client_secret }
             };
 
             var uri = configuration.GetSection("Urls").GetSection("FlightOffersSearch").GetSection("Authorization").Value;
@@ -54,22 +57,32 @@ namespace FlightDeals.Services
             tokenExpiration = DateTime.Now.AddSeconds(Int32.Parse(expiresIn));
         }
 
-        public async Task<string> GetFlightOffers()
+        public async Task<string> GetFlightOffers(FlightSearchModel flightOffersModel)
         {
             await UpdateToken();
             var uri = configuration.GetSection("Urls").GetSection("FlightOffersSearch").GetSection("Api").Value;
 
-            var parameters = new Dictionary<string, string>()
+
+            var model = new FlightSearchModel()
             {
-                {"originLocationCode","KRK" },
-                { "destinationLocationCode","PAR" },
-                {"departureDate","2019-12-25" },
-                { "adults","1"}
+                OriginLocationCode = "KRK",
+                DestinationLocationCode = "AMS",
+                DepartureDate = "2019-12-25",
+                Adults = 1,
+                Max = 1
             };
-            return await client.GetAsync(uri, token, parameters);
+
+          
+
+            Dictionary<string, string> modelDict = model.ToDictionary();
+
+            var json = JsonConvert.SerializeObject(model, Formatting.Indented,
+                                                   new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+
+            return await client.GetAsync(uri, token, json);
         }
 
 
-       
+
     }
 }

@@ -11,15 +11,15 @@ namespace FlightDeals.Features.Home
 {
     public class HomeController : Controller        
     {
-        private readonly IFlightOffersSearchClient flightOffers;
+        private readonly IFlightOffersClient flightOffers;
 
-        public HomeController(IFlightOffersSearchClient flightOffers)
+        public HomeController(IFlightOffersClient flightOffers)
         {
             this.flightOffers = flightOffers;
         }
         public IActionResult Index()
-        {
-            var result = flightOffers.GetFlightOffers().Result;
+        {            
+           // var result = flightOffers.GetFlightOffers(new FlightOffersModel()).Result;
             return View();
         }
 

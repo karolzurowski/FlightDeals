@@ -1,26 +1,26 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>5d10d87f-e196-4a6f-8acc-5797a5764a02</UserSecretsId>
   </PropertyGroup>
-
-
-  
-
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Ibistic.Public.OpenAirportData" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
   </ItemGroup>
-
-
   <ItemGroup>
     <None Include="Areas\**\*.cshtml" CopyToPublishDirectory="Always" />
     <None Include="Features\**\*.cshtml" CopyToPublishDirectory="Always" />
   </ItemGroup>
-
-
+  <ItemGroup>
+    <Content Remove="Features\FlightSearch\Index.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FlightDeals.Core\FlightDeals.Core.csproj" />
     <ProjectReference Include="..\FlightDeals.Data\FlightDeals.Data.csproj" />

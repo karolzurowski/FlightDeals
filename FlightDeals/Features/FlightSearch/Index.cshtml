@@ -1,0 +1,83 @@
+﻿@using FlightDeals.Features.FlightSearch
+@model FlightSearchViewModel
+@{
+    ViewData["Title"] = "Search for flights";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Search for flights</h1>
+</div>
+
+
+<section class="col-md-6 offset-md-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="OriginLocationCode">OriginLocation</label>
+            <input asp-for="OriginLocationCode" type="text" class="form-control" placeholder="OriginLocationCode" />
+            <span asp-validation-for="OriginLocationCode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DestinationLocationCode">DestinationLocationCode</label>
+            <input asp-for="DestinationLocationCode" type="text" class="form-control" placeholder="DestinationLocationCode" />
+            <span asp-validation-for="DestinationLocationCode" class="text-danger"></span>
+        </div>
+        <section class="form-group">          
+            <input asp-for="DepartureDate" type="text" readonly="readonly"  class="form-control" placeholder="DepartureDate" id="datepicker" />
+            <span asp-validation-for="DepartureDate" class="text-danger"></span>           
+            @*<p>Date: <input type="text" id="datepicker"></p>*@
+        </section>
+        <div class="form-group">
+            <label asp-for="Adults">Adults</label>
+            <input asp-for="Adults" type="number" class="form-control" placeholder="Adults" />
+            <span asp-validation-for="Adults" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ReturnDate">ReturnDate</label>
+            <input asp-for="ReturnDate" type="text" class="form-control" placeholder="ReturnDate" />
+            <span asp-validation-for="ReturnDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Children">Children</label>
+            <input asp-for="Children" type="number" class="form-control" placeholder="Children" />
+            <span asp-validation-for="Children" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TravelClass">TravelClass</label>
+            <input asp-for="TravelClass" type="text" class="form-control" placeholder="TravelClass" />
+            <span asp-validation-for="TravelClass" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="IncludedAirlineCodes">IncludedAirlineCodes</label>
+            <input asp-for="IncludedAirlineCodes" type="text" class="form-control" placeholder="IncludedAirlineCodes" />
+            <span asp-validation-for="IncludedAirlineCodes" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ExcludedAirlineCodes">ExcludedAirlineCodes</label>
+            <input asp-for="ExcludedAirlineCodes" type="text" class="form-control" placeholder="ExcludedAirlineCodes" />
+            <span asp-validation-for="ExcludedAirlineCodes" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NonStop">NonStop</label>
+            <input asp-for="NonStop" type="checkbox" class="form-control" placeholder="NonStop" />
+            <span asp-validation-for="NonStop" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrencyCode">CurrencyCode</label>
+            <input asp-for="CurrencyCode" type="text" class="form-control" placeholder="CurrencyCode" />
+            <span asp-validation-for="CurrencyCode"></span>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</section>
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery-ui.js" language="javascript" type="text/javascript"></script>
+   
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+
+}

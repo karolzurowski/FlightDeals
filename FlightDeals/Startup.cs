@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using FlightDeals.Services.Interfaces;
+using FlightDeals.Features;
+using AutoMapper;
 using FlightDeals.Services;
-using System.Net.Http.Headers;
 
 namespace FlightDeals
 {
@@ -34,6 +35,7 @@ namespace FlightDeals
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc(o =>
             o.Conventions.Add(new FeatureConvention()))
@@ -48,7 +50,7 @@ namespace FlightDeals
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddHttpClient<IFlightOffersSearchClient, FlightOffersSearchClient>(
+            services.AddHttpClient<IFlightOffersClient, FlightOffersClient>(
                 client =>
                 {
                     client.BaseAddress = new Uri("https://test.api.amadeus.com/");   
@@ -64,7 +66,7 @@ namespace FlightDeals
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

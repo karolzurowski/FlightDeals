@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,6 @@ namespace FlightDeals.Core.Extensions
                                                   Dictionary<string, string> parameters,
                                                   Dictionary<string, string> headers = null)
         {
-
             var httpRequestMessage = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
@@ -38,22 +38,49 @@ namespace FlightDeals.Core.Extensions
 
         public static async Task<string> GetAsync(this HttpClient client, string uri, string token, Dictionary<string, string> parameters)
         {
-
+          
             var httpRequestMessage = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri(uri, UriKind.Relative).AttachParameters(parameters)                
+                RequestUri = new Uri(uri, UriKind.Relative).AttachParameters(parameters)
             };
 
-            httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);         
+            httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = (await client.SendAsync(httpRequestMessage)).EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
         }
 
+        public static async Task<string> GetAsync(this HttpClient client, string uri, string token, string parametersJson)
+        {
+            if (string.IsNullOrEmpty(parametersJson))
+            {
+                throw new ArgumentException(
+                   "{" + MethodInfo.GetCurrentMethod() + "} Error:\n\nParameters cannot be null or empty");
+            }
+
+            var parametersDict =  JsonConvert.DeserializeObject<Dictionary<string, string>>(parametersJson);
+            var httpRequestMessage = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(uri, UriKind.Relative).AttachParameters(parametersDict)
+            };
+
+            httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = (await client.SendAsync(httpRequestMessage)).EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+
+
         public static async Task<string> PostAsync(this HttpClient client, string uri, Dictionary<string, string> data,
                                                      Dictionary<string, string> headers = null)
         {
+            if (data ==null || data.Count==0)
+            {
+                throw new ArgumentException(
+                   "{" + MethodInfo.GetCurrentMethod() + "} Error:\n\nData cannot be null or empty");
+            }
             var httpRequestMessage = new HttpRequestMessage
             {
 
@@ -74,6 +101,36 @@ namespace FlightDeals.Core.Extensions
             return await response.Content.ReadAsStringAsync();
         }
 
+        public static async Task<string> PostAsync(this HttpClient client, string uri, string dataJson,
+                                                  string headersJson = null)
+        {
+            if (string.IsNullOrEmpty(dataJson))
+            {
+                throw new ArgumentException(
+                   "{" + MethodInfo.GetCurrentMethod() + "} Error:\n\nData cannot be null or empty");
+            }
+
+            var dataDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(dataJson);
+            var httpRequestMessage = new HttpRequestMessage
+            {
+
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(uri, UriKind.Relative),
+                Content = new FormUrlEncodedContent(dataDict),
+            };
+
+            if (String.IsNullOrEmpty(headersJson))
+            {
+                var headersDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(headersJson);
+                foreach (var kvp in headersDict.Where(kvp => kvp.Value != null))
+                {
+                    httpRequestMessage.Headers.Add(kvp.Key, kvp.Value);
+                }
+            }
+
+            var response = (await client.SendAsync(httpRequestMessage)).EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
 
 
         public static async Task<string> PostAsync(this HttpClient client, string uri, string data,
@@ -81,7 +138,6 @@ namespace FlightDeals.Core.Extensions
         {
             var httpRequestMessage = new HttpRequestMessage
             {
-
                 Method = HttpMethod.Post,
                 RequestUri = new Uri(uri, UriKind.Relative),
                 Content = new StringContent(data),
@@ -120,18 +176,18 @@ namespace FlightDeals.Core.Extensions
 
         }
 
-        public static Dictionary<string,string> ToDictionary(this object obj)
+        public static Dictionary<string, string> ToDictionary(this object obj)
         {
             var dictionary = new Dictionary<string, string>();
             var properties = obj.GetType().GetProperties();
 
-            foreach (var property in properties)
+            foreach (var property in properties.Where(p => p.GetValue(obj)!=null && !p.GetValue(obj).Equals(p.PropertyType.GetDefault())))
             {
                 dictionary.Add(property.Name, property.GetValue(obj).ToString());
             }
 
             return dictionary;
-            
+
         }
     }
 }
