@@ -14,13 +14,13 @@ namespace FlightDeals.Core.Models.FlightOffer
         /// Total amount paid by the user
         /// </summary>
         [JsonProperty("total")]
-        public string Total { get; set; }   //todo change to float
+        public float Total { get; set; }  
 
         /// <summary>
         ///  Amount without taxes
         /// </summary>
         [JsonProperty("base")]
-        public string Base { get; set; }  //todo to float
+        public float Base { get; set; } 
 
         /// <summary>
         /// List of applicable fees

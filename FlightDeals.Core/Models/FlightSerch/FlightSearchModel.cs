@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using FlightDeals.Core.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+
 using System.Globalization;
-using System.Text;
-using static FlightDeals.Core.Models.FlightSearch.Enumerations;
+
+
 
 namespace FlightDeals.Core.Models.FlightSearch
 {
@@ -28,12 +30,9 @@ namespace FlightDeals.Core.Models.FlightSearch
         /// The date on which the traveler will depart from the origin to go to the destination,REQUIRED
         /// Throws argument exception when string does not contain valid date
         /// </summary>
-        [JsonProperty("departureDate")]
-        public string DepartureDate
-        {
-            get { return departureDate?.ToString("yyyy-MM-dd"); }
-            set { returnDate = DateTime.ParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture); }
-        }
+        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonProperty(PropertyName = "departureDate", TypeNameHandling = TypeNameHandling.All)]
+        public DateTime DepartureDate { get; set; }
 
         /// <summary>
         /// The date on which the traveler will depart from the destination to return to the origin. 

@@ -8,7 +8,7 @@ namespace FlightDeals.Core.Models.FlightOffer
     public class Fee
     {
         [JsonProperty("amount")]
-        public string Amount { get; set; } //todo to float
+        public float Amount { get; set; } 
 
         /// <summary>
         /// type of fee = ['TICKETING', 'FORM_OF_PAYMENT', 'SUPPLIER']

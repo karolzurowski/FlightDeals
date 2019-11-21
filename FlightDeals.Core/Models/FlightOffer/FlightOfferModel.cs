@@ -63,9 +63,15 @@ namespace FlightDeals.Core.Models.FlightOffer
         [JsonProperty("itineraries")]
         public List<Itinerary> Itineraries { get; set; }
 
+        [JsonProperty("price")]
+        public Price Price { get; set; }
+
+        [JsonProperty("travelerPricings")]
+        public List<TravelerPricing> TravelerPricings { get; set; }
 
 
 
-      
+
+
     }
 }

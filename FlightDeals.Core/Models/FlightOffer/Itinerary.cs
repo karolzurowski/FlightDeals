@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FlightDeals.Core.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -9,12 +10,15 @@ namespace FlightDeals.Core.Models.FlightOffer
         /// <summary>
         /// Duration in ISO8601 PnYnMnDTnHnMnS format, e.g. PT2H10M 
         /// </summary>
-        [JsonProperty("duration")]
-        public string Duration { get; set; }  //todo change this to datetime
+        [JsonConverter(typeof(TimeSpanConverter))]
+        [JsonProperty( PropertyName ="duration",TypeNameHandling =TypeNameHandling.All)]
+        public TimeSpan Duration { get; set; } 
 
 
         [JsonProperty("segments")]
         public List<Segment> Segments { get; set; }
+
+    
 
        
     }

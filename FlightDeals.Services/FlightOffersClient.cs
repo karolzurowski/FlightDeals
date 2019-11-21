@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using FlightDeals.Core.Models.FlightSearch;
+using Newtonsoft.Json.Linq;
 
 namespace FlightDeals.Services
 {
@@ -38,7 +39,7 @@ namespace FlightDeals.Services
             //using user-secrets
             var client_id = configuration["Authentication:client_id"];
             var client_secret = configuration["Authentication:client_secret"];
-           
+
             var credentials = new Dictionary<string, string>()
             {
                 { "grant_type","client_credentials" },
@@ -63,23 +64,15 @@ namespace FlightDeals.Services
             var uri = configuration.GetSection("Urls").GetSection("FlightOffersSearch").GetSection("Api").Value;
 
 
-            var model = new FlightSearchModel()
-            {
-                OriginLocationCode = "KRK",
-                DestinationLocationCode = "AMS",
-                DepartureDate = "2019-12-25",
-                Adults = 1,
-                Max = 1
-            };
+            Dictionary<string, string> modelDict = flightOffersModel.ToDictionary();
 
-          
-
-            Dictionary<string, string> modelDict = model.ToDictionary();
-
-            var json = JsonConvert.SerializeObject(model, Formatting.Indented,
+            var json = JsonConvert.SerializeObject(flightOffersModel, Formatting.Indented,
                                                    new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
 
-            return await client.GetAsync(uri, token, json);
+            var jsonResponse = await client.GetAsync(uri, token, json);
+            return JObject.Parse(jsonResponse)["data"].ToString();
+
+
         }
 
 

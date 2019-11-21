@@ -1,9 +1,10 @@
-﻿using System;
+﻿using FlightDeals.Core.Models.FlightSearch;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static FlightDeals.Core.Models.FlightSearch.Enumerations;
+
 
 namespace FlightDeals.Features.FlightSearch
 {
@@ -16,7 +17,8 @@ namespace FlightDeals.Features.FlightSearch
         public string DestinationLocationCode { get; set; }
 
         [Required(ErrorMessage ="DepartureDate is required")]
-        public string DepartureDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime DepartureDate { get; set; }
 
         public string ReturnDate { get; set; }
 

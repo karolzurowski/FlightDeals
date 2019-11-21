@@ -4,14 +4,12 @@ using System.Text;
 
 namespace FlightDeals.Core.Models.FlightSearch
 {
-    public class Enumerations
+    public enum TravelClass
     {
-        public enum TravelClass
-        {
-            ECONOMY,
-            PREMIUM_ECONOMY,
-            BUSINESS,
-            FIRST
-        }
+        ECONOMY,
+        PREMIUM_ECONOMY,
+        BUSINESS,
+        FIRST
     }
+
 }
