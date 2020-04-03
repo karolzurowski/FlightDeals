@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FlightDeals.Core.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,8 +32,9 @@ namespace FlightDeals.Core.Models.FlightOffer
         /// <summary>
         /// Stop duration in ISO8601 PnYnMnDTnHnMnS format, e.g. PT2H10M ,
         /// </summary>
-        [JsonProperty("duration")]
-        public string Duration { get; set; }  //todo change this to datetime
+        [JsonConverter(typeof(TimeSpanConverter))]
+        [JsonProperty("duration",TypeNameHandling =TypeNameHandling.All)]
+        public TimeSpan Duration { get; set; }  
 
         /// <summary>
         ///  Information regarding the different stops composing the flight segment. E.g. technical stop, change of gauge... ,

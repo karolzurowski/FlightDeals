@@ -1,0 +1,47 @@
+﻿@using FlightDeals.Features.FlightSearch
+@using FlightDeals.Core.Models.FlightOffer
+@model List<FlightOfferModel>
+
+<div class="text-center">
+    <h1 class="display-4">RESULTS</h1>
+</div>
+
+
+
+
+
+@foreach (var offer in Model)
+{
+    <section>
+        @{
+            var offerName = "offer" + offer.Id;
+
+            <button class="btn btn-light" type="button" data-toggle="collapse" data-target="@("#"+offerName)">
+                @foreach (var itinerary in offer.Itineraries)
+                {
+
+                <p>
+                    <h1> From @itinerary.Segments[0].Departure.IataCode  to @itinerary.Segments[@itinerary.Segments.Count - 1].Arrival.IataCode</h1>
+                    <h2>Duration:@itinerary.Duration </h2>
+                    Stops : @itinerary.Segments.Count
+
+                <div class="collapse" id="@offerName">
+                    Stops : @itinerary.Segments.Count
+                </div>
+                </p>
+                }
+            </button>
+
+        }
+
+
+
+    </section>
+}
+
+
+@*@section Scripts{
+
+
+
+    }*@

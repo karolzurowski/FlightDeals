@@ -7,8 +7,6 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
   font-size: 14px;
 }
@@ -34,16 +32,16 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
+  
   margin-bottom: 60px;
+  background-color:whitesmoke
 }
 .footer {
   position: absolute;

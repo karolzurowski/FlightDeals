@@ -93,25 +93,25 @@ namespace FlightDeals.Core.Models.FlightSearch
         /// if specified, the flight offer will exclude all the flights marketed by one of these airlines. 
         /// Airlines are specified as IATA airline codes and are comma-separated, e.g. 6X,7X,8X
         /// </summary>
-        //   [JsonProperty("excludedAirlineCodes")]
+        [JsonProperty("excludedAirlineCodes")]
         public string ExcludedAirlineCodes { get; set; } = null;
 
         /// <summary>
         /// If set to true, the search will find only flights going from the origin to the destination with no stop in between
         /// </summary>
-        // [JsonProperty("nonStop")]
+        [JsonProperty("nonStop")]
         public bool NonStop { get; set; }
 
         /// <summary>
         /// The preferred currency for the flight offers. Currency is specified in the ISO 4217 format, e.g. EUR for Euro
         /// </summary>
-        //   [JsonProperty("currencyCode")]
+        [JsonProperty("currencyCode")]
         public string CurrencyCode { get; set; } = null;
 
         /// <summary>
         /// Maximum number of flight offers to return. If specified, the value should be greater than or equal to 1
         /// </summary>
-        //   [JsonProperty("max")]
+        [JsonProperty("max")]
         public int? Max { get; set; } = null;
 
 

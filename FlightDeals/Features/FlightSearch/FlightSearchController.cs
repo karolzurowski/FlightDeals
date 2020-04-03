@@ -30,13 +30,19 @@ namespace FlightDeals.Features.FlightSearch
         [HttpPost]
         public async Task<IActionResult> Index(FlightSearchViewModel flightSearchViewModel)
         {
-            var flightsearchModel = mapper.Map<FlightSearchViewModel, FlightSearchModel>(flightSearchViewModel);
+            if (ModelState.IsValid)
+            {
+                var flightsearchModel = mapper.Map<FlightSearchViewModel, FlightSearchModel>(flightSearchViewModel);
 
-            var flightOffersJson = await flightOffersClient.GetFlightOffers(flightsearchModel);
+                var flightOffersJson = await flightOffersClient.GetFlightOffers(flightsearchModel);
 
-            List<FlightOfferModel> offers = JsonConvert.DeserializeObject<List<FlightOfferModel>>(flightOffersJson,new JsonSerializerSettings {Formatting=Formatting.Indented });
+                List<FlightOfferModel> offers = JsonConvert.DeserializeObject<List<FlightOfferModel>>(flightOffersJson, new JsonSerializerSettings { Formatting = Formatting.Indented });
+
+                return View("FlightOffers", offers);
+            }
 
             return View();
+            
         }
     }
 }

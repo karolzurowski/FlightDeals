@@ -10,19 +10,19 @@ namespace FlightDeals.Features.FlightSearch
 {
     public class FlightSearchViewModel
     {
-        [Required(ErrorMessage ="Origin location code is required")]
+        [Required(ErrorMessage = "Origin location code is required")]
         public string OriginLocationCode { get; set; }
 
-        [Required(ErrorMessage ="DestinationLocationCode is required")]
+        [Required(ErrorMessage = "DestinationLocationCode is required")]
         public string DestinationLocationCode { get; set; }
 
-        [Required(ErrorMessage ="DepartureDate is required")]
+        [Required(ErrorMessage = "DepartureDate is required")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DepartureDate { get; set; }
 
         public string ReturnDate { get; set; }
 
-        [Required(ErrorMessage ="Number of adults is required")]
+        [Required(ErrorMessage = "Number of adults is required")]
         public int? Adults { get; set; }
 
         public int? Children { get; set; } = null;

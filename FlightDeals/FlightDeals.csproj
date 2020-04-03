@@ -19,6 +19,7 @@
     <None Include="Features\**\*.cshtml" CopyToPublishDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Features\FlightSearch\FlightOffers.cshtml" />
     <Content Remove="Features\FlightSearch\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
