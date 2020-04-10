@@ -15,6 +15,8 @@ using FlightDeals.Features;
 using AutoMapper;
 using FlightDeals.Services;
 using System.IO;
+using FlightDeals.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightDeals
 {
@@ -63,7 +65,7 @@ namespace FlightDeals
                 {
                     client.BaseAddress = new Uri("https://test.api.amadeus.com/");
                 });
-
+            services.AddDbContext<FlightDealsContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:FlightDealsDB"]));
 
         }
 
