@@ -10,13 +10,13 @@ namespace FlightDeals.Features.FlightSearch
 {
     public class FlightSearchViewModel
     {
-        [Required(ErrorMessage = "Origin location code is required")]
+        [Required(ErrorMessage = "Please select departure location")]
         public string OriginLocationCode { get; set; }
 
-        [Required(ErrorMessage = "DestinationLocationCode is required")]
+        [Required(ErrorMessage = "Please select arrival location")]
         public string DestinationLocationCode { get; set; }
 
-        [Required(ErrorMessage = "DepartureDate is required")]
+        [Required(ErrorMessage = "Departure date is required")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DepartureDate { get; set; }
 
@@ -29,21 +29,15 @@ namespace FlightDeals.Features.FlightSearch
 
         public int? Infants { get; set; } = null;
 
-
         public TravelClass? TravelClass { get; set; } = null;
-
 
         public string IncludedAirlineCodes { get; set; } = null;
 
-
         public string ExcludedAirlineCodes { get; set; } = null;
-
 
         public bool NonStop { get; set; }
 
-
         public string CurrencyCode { get; set; } = null;
-
 
         public int? Max { get; set; } = 10;
     }

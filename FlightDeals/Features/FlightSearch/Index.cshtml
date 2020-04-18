@@ -5,122 +5,105 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Search for flights</h1>
+    <h1 class="card-title">Search for flights</h1>
 </div>
 
 
-@*@{
 
-        var name = "collapseExample";
-        <div class="text-center">
-            <h1 class="display-4">Search for flights</h1>
+<section class="container-fluid col-8 offset-2 searchFlightsForm">
+   
+    <form method="post" class="container-fluid" id="flightSearchForm">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="row">
+
+            <div class="form-group col-md-3 col-sm-6 col-12">
+                <label asp-for="OriginLocationCode" class="col-12">From</label>
+                <input type="text" class="form-control col-12 customAutocomplete" placeholder="City/Airport" id="departureTextBox" />
+                <input asp-for="OriginLocationCode" type="hidden" id="departureIataCode" />
+            </div>
+
+            <div class="form-group col-md-3 col-sm-6 col-12">
+                <label asp-for="DestinationLocationCode" class="col-12">To</label>
+                <input type="text" class="form-control col-12" placeholder="City/Airport" id="arrivalTextBox" />
+                <input asp-for="DestinationLocationCode" type="hidden" id="arrivalIataCode" />
+            </div>
+
+            <div class="form-group col-md-3 col-sm-6 col-6">
+                <label asp-for="DepartureDate" class="col-12">DepartureDate</label>
+                <input asp-for="DepartureDate" type="text" autocomplete="off" class="form-control col-12 datepicker" placeholder="DepartureDate" id="departureDate" />
+            </div>
+
+            <div class="form-group col-md-3 col-sm-6 col-6">
+                <label asp-for="ReturnDate" class="col-12">ReturnDate</label>
+                <input asp-for="ReturnDate" type="text" autocomplete="off" class="datepicker form-control col-12 " placeholder="ReturnDate" id="returnDate" />
+            </div>
+
+            <div class="form-group col-md-3 col-sm-6 col-6">
+                <label asp-for="Adults" class="col-12">Adults</label>
+                <input asp-for="Adults" type="number" class="form-control col-12" placeholder="Adults" value="1" />
+            </div>
+
+
+            @*<div class="form-group">
+                    <label asp-for="Children">Children</label>
+                    <input asp-for="Children" type="number" class="form-control" placeholder="Children" />
+                </div>*@
+
+            <div class="form-group col-md-3 col-sm-6 col-6">
+                <label asp-for="TravelClass" class="col-12">TravelClass</label>
+                <input asp-for="TravelClass" type="text" class="form-control col-12" placeholder="TravelClass" />
+            </div>
+
+            @*<div class="form-group">
+                    <label asp-for="IncludedAirlineCodes">IncludedAirlineCodes</label>
+                    <input asp-for="IncludedAirlineCodes" type="text" class="form-control" placeholder="IncludedAirlineCodes" />
+                </div>*@
+
+            @*<div class="form-group">
+                    <label asp-for="ExcludedAirlineCodes">ExcludedAirlineCodes</label>
+                    <input asp-for="ExcludedAirlineCodes" type="text" class="form-control" placeholder="ExcludedAirlineCodes" />
+                </div>*@
+
+            @*<div class="form-group">
+                    <label asp-for="NonStop">NonStop</label>
+                    <input asp-for="NonStop" type="checkbox" class="form-control" placeholder="NonStop" />
+                </div>*@
+
+            @*<div class="form-group">
+                    <label asp-for="CurrencyCode">CurrencyCode</label>
+                    <input asp-for="CurrencyCode" type="text" class="form-control" placeholder="CurrencyCode" />
+                </div>*@
         </div>
-        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Link with href
-        </a>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="@("#" + @name)" aria-expanded="false" aria-controls="collapseExample">
-            Button with data-target
-        </button>
-        <div class="collapse" id="@name">
-            <div class="well">
-                dgsfgsdfgfdsdfgdfgsdfgfdgdfg
-                <p>sdfasdfasdfa<br /></p>
+        <div class="row">
+            <div class="form-group btn-group col-md-3 col-sm-6 col-6">
+                <button class="btn btn-primary" type="submit">Submit</button>
             </div>
         </div>
 
 
-    }*@
-
-
-
-
-<section>
-
-
-
-    <form method="post" class="offset-1 col-md-10">
-        <div asp-validation-summary="All" class="text-danger"></div>
-
-        <div class="input-group">
-            @*<div class="input-group  col-md-5 >*@
-                <div class=" input-group col-md-6 col-sm-6">
-                    <label asp-for="OriginLocationCode" class="col-md-2 col-sm-12">From</label>
-                    <input asp-for="OriginLocationCode" type="text" class="form-control col-md-10 col-sm-12" placeholder="Country/City/Airport" />
-                </div>
-            @*</div>*@
-            @*<div class="input-group  col-md-5">*@
-                <div class="input-group col-md-6  col-sm-6">
-                    <label asp-for="DestinationLocationCode" class="col-md-2 col-sm-12">To</label>
-                    <input asp-for="DestinationLocationCode" type="text" class="form-control col-md-10 col-sm-12" placeholder="Country/City/Airport" />
-                </div>
-            @*</div>*@
-        </div>
-
-        <section class="form-group">
-            <input asp-for="DepartureDate" type="text" readonly="readonly" class="form-control" placeholder="DepartureDate" id="datepicker" />
-
-
-        </section>
-        <div class="form-group">
-            <label asp-for="Adults">Adults</label>
-            <input asp-for="Adults" type="number" class="form-control" placeholder="Adults" value="1" />
-        </div>
-        <div class="form-group">
-            <label asp-for="ReturnDate">ReturnDate</label>
-            <input asp-for="ReturnDate" type="text" class="form-control" placeholder="ReturnDate" />
-
-        </div>
-        <div class="form-group">
-            <label asp-for="Children">Children</label>
-            <input asp-for="Children" type="number" class="form-control" placeholder="Children" />
-
-        </div>
-        <div class="form-group">
-            <label asp-for="TravelClass">TravelClass</label>
-            <input asp-for="TravelClass" type="text" class="form-control" placeholder="TravelClass" />
-
-        </div>
-        <div class="form-group">
-            <label asp-for="IncludedAirlineCodes">IncludedAirlineCodes</label>
-            <input asp-for="IncludedAirlineCodes" type="text" class="form-control" placeholder="IncludedAirlineCodes" />
-
-        </div>
-        <div class="form-group">
-            <label asp-for="ExcludedAirlineCodes">ExcludedAirlineCodes</label>
-            <input asp-for="ExcludedAirlineCodes" type="text" class="form-control" placeholder="ExcludedAirlineCodes" />
-
-        </div>
-        <div class="form-group">
-            <label asp-for="NonStop">NonStop</label>
-            <input asp-for="NonStop" type="checkbox" class="form-control" placeholder="NonStop" />
-
-        </div>
-        <div class="form-group">
-            <label asp-for="CurrencyCode">CurrencyCode</label>
-            <input asp-for="CurrencyCode" type="text" class="form-control" placeholder="CurrencyCode" />
-        </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </section>
 
+
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery-ui.js" language="javascript" type="text/javascript"></script>
-
-
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" language="javascript" type="text/javascript"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" language="javascript" type="text/javascript"></script>
+    <script src="~/js/FlightSearch/FlightSearchUtils.js" language="javascript" type="text/javascript"></script>
 
     <script>
         $(function () {
-            $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+            FlightSeachUtils.setupAutoComplete();
+            FlightSeachUtils.setIataCode($("#departureTextBox"), $("#departureIataCode"));
+            FlightSeachUtils.setIataCode($("#arrivalTextBox"), $("#arrivalIataCode"));
+            $("#departureDate,#returnDate").datepicker({ dateFormat: 'yy-mm-dd' });
+            $.validator.setDefaults({ ignore: null });
+
         });
     </script>
 
-    <script>
-        $('.hidden').removeClass('hidden').hide();
-        $('.toggle-text').click(function () {
-            $(this).find('p').each(function () { $(this).toggle(); });
-        });
-    </script>
+
+
 
 }

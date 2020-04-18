@@ -1,48 +1,43 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿@charset "UTF-8";
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
+@import url(../lib/font-awesome/css/fontawesome.css);
+@import url(../lib/font-awesome/css/solid.css);
+@import url(../lib/font-awesome/css/brands.css);
+@import url(Variables.css);
 a.navbar-brand {
   white-space: normal;
   text-align: center;
-  word-break: break-all;
-}
+  word-break: break-all; }
 
 html {
-  font-size: 14px;
-}
+  font-size: 14px; }
+
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
-  }
-}
+    font-size: 16px; } }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
-}
+  border-top: 1px solid #e5e5e5; }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
+  border-bottom: 1px solid #e5e5e5; }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05); }
 
 button.accept-policy {
   font-size: 1rem;
-  line-height: inherit;
-}
-
+  line-height: inherit; }
 
 html {
   position: relative;
-  min-height: 100%;
-}
+  min-height: 100%; }
 
 body {
-  
   margin-bottom: 60px;
-  background-color:whitesmoke
-}
+  background-color: whitesmoke; }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -50,18 +45,66 @@ body {
   white-space: nowrap;
   /* Set the fixed height of the footer here */
   height: 60px;
-  line-height: 60px; /* Vertically center the text there */
-}
+  line-height: 60px;
+  /* Vertically center the text there */ }
+
 .input-validation-error {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
-}
+  border: 1px solid #ff0000;
+  background-color: #ffeeee; }
 
 .ui-datepicker {
-    font-size: 10px;
-}
+  font-size: 10px; }
 
-#datepicker {
-    background: white;
-}
+input.datepicker {
+  background: white; }
 
+label {
+  margin-bottom: 0px; }
+
+.searchFlightsForm {
+  padding: 0px;
+  background: linear-gradient(to right, #82b9ed, #89b5ea); }
+
+.ui-autocomplete {
+  width: 400px; }
+  .ui-autocomplete li:not(.ui-autocomplete-city) div:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: "";
+    margin-right: 5px; }
+  .ui-autocomplete .ui-menu-item {
+    margin-left: 5px;
+    border-top-color: #ffffff; }
+    .ui-autocomplete .ui-menu-item.ui-autocomplete-city {
+      font-weight: bold;
+      line-height: 1.5; }
+      .ui-autocomplete .ui-menu-item.ui-autocomplete-city:before {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        content: "";
+        margin-right: 5px; }
+    .ui-autocomplete .ui-menu-item .ui-state-active {
+      background: linear-gradient(to right, #82b9ed, #89b5ea);
+      font-weight: bold !important;
+      color: black;
+      border-color: #ced4da; }
+    .ui-autocomplete .ui-menu-item .submenu {
+      padding-left: 0px !important;
+      margin-left: 0px !important;
+      border-left: 0px; }
+      .ui-autocomplete .ui-menu-item .submenu.ui-state-active {
+        background: #ffffff;
+        color: black;
+        border-color: #ced4da;
+        border-top-color: #ffffff;
+        border-bottom-color: #ffffff; }
+      .ui-autocomplete .ui-menu-item .submenu .ui-menu {
+        width: 345px;
+        width: 389px;
+        position: relative !important;
+        display: block !important;
+        animation: none !important;
+        font-weight: normal;
+        padding-left: 5px;
+        margin-left: 5px;
+        border-color: #ffffff; }

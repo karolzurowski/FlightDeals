@@ -1,0 +1,72 @@
+﻿@import "Variables.css";
+//default icons :city/plane
+@mixin customAutocomplete($cityIcon: "\f64f",$submenuIcon: "\f072") {
+    .ui-autocomplete {
+        $width: 400px;
+        $padding: 5px;
+        $margin: 5px;
+        width: $width;
+
+        li:not(.ui-autocomplete-city) {
+            div {
+                &:before {
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                    content: $submenuIcon;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .ui-menu-item {
+            margin-left: $margin;
+            border-top-color: $background-white;
+
+            &.ui-autocomplete-city {
+                font-weight: bold;
+                line-height: 1.5;
+
+                &:before {
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: 900;
+                    content: $cityIcon;
+                    margin-right: 5px;
+                }
+            }
+
+            .ui-state-active {
+                background: $background-light-blue;
+                font-weight: bold !important;
+                color: black;
+                border-color: $border-gray;
+            }
+
+            .submenu {
+                padding-left: 0px !important;
+                margin-left: 0px !important;
+                border-left: 0px;
+
+                &.ui-state-active {
+                    background: $background-white;
+                    color: black;
+                    border-color: $border-gray;
+                    border-top-color: $background-white;
+                    border-bottom-color: $background-white;
+                }
+
+                .ui-menu {
+                    width: (400px - 50px - 5px);
+                    width: ($width - $padding - $padding - 1);
+                    //  width:385px;
+                    position: relative !important;
+                    display: block !important;
+                    animation: none !important;
+                    font-weight: normal;
+                    padding-left: $padding;
+                    margin-left: $margin;
+                    border-color: $background-white;
+                }
+            }
+        }
+    }
+}

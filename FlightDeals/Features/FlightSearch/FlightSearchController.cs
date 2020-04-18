@@ -8,6 +8,12 @@ using FlightDeals.Core.Models.FlightSearch;
 using FlightDeals.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Ibistic.Public.OpenAirportData;
+using Ibistic.Public.OpenAirportData.OpenFlightsData;
+using Ibistic.Public.OpenAirportData.MemoryDatabase;
+using FlightDeals.Data.AirportProvider;
+using FlightDeals.Data;
+using FlightDeals.Core.Extensions;
 
 namespace FlightDeals.Features.FlightSearch
 {
@@ -15,12 +21,17 @@ namespace FlightDeals.Features.FlightSearch
     {
         private readonly IFlightOffersClient flightOffersClient;
         private readonly IMapper mapper;
+        private readonly FlightDealsContext context;
+        private readonly IAirportProvider airportProvider;
 
-        public FlightSearchController(IFlightOffersClient flightOffersClient, IMapper mapper)
+        public FlightSearchController(IFlightOffersClient flightOffersClient, IMapper mapper, FlightDealsContext context, IAirportProvider airportProvider)
         {
             this.flightOffersClient = flightOffersClient;
             this.mapper = mapper;
+            this.context = context;
+            this.airportProvider = airportProvider;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -40,9 +51,22 @@ namespace FlightDeals.Features.FlightSearch
 
                 return View("FlightOffers", offers);
             }
-
             return View();
-            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search()
+        {
+            try
+            {
+                string term = HttpContext.Request.Query["term"].ToString();
+                var airports = airportProvider.FindAirports(term).ConvertToJson();
+                return Ok(airports);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

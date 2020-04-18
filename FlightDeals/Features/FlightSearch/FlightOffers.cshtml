@@ -7,38 +7,41 @@
 </div>
 
 
+<section class="container-fluid col-md-7 offset-2" >
+    @foreach (var offer in Model)
+    {
+        <section class="container-fluid">
+            @{
+                var offerName = "offer" + offer.Id;
+
+                <button class="btn-block btn-light" type="button" data-toggle="collapse" data-target="@("#"+offerName)">
+                    @foreach (var itinerary in offer.Itineraries)
+                    {
+
+                        <div>
+                            <h4> From @itinerary.Segments[0].Departure.IataCode  to @itinerary.Segments[@itinerary.Segments.Count - 1].Arrival.IataCode</h4>
+                            <b>Duration:@itinerary.Duration </b>
+                            Stops : @itinerary.Segments.Count
+
+                            <div class="collapse" id="@offerName">
+                               @foreach (var segment in itinerary.Segments)
+                               {
+                                   <section>
+                                       <b> From @segment.Departure.IataCode (@segment.Departure.At)  to  @segment.Arrival.IataCode (@segment.Arrival.At)</b>
+                                   </section>
+                               }
+                            </div>
+                        </div>
+                    }
+                </button>
+
+            }
 
 
 
-@foreach (var offer in Model)
-{
-    <section>
-        @{
-            var offerName = "offer" + offer.Id;
-
-            <button class="btn btn-light" type="button" data-toggle="collapse" data-target="@("#"+offerName)">
-                @foreach (var itinerary in offer.Itineraries)
-                {
-
-                <p>
-                    <h1> From @itinerary.Segments[0].Departure.IataCode  to @itinerary.Segments[@itinerary.Segments.Count - 1].Arrival.IataCode</h1>
-                    <h2>Duration:@itinerary.Duration </h2>
-                    Stops : @itinerary.Segments.Count
-
-                <div class="collapse" id="@offerName">
-                    Stops : @itinerary.Segments.Count
-                </div>
-                </p>
-                }
-            </button>
-
-        }
-
-
-
-    </section>
-}
-
+        </section>
+    }
+</section>
 
 @*@section Scripts{
 

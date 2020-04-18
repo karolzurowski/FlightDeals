@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FlightDeals.Core.Extensions
 {
-    public static class CommonHelpers
+    public static class ObjectExtensions
     {
         /// <summary>       
         /// Retrieves the default value for a given Type

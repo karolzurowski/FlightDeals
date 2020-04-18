@@ -17,12 +17,12 @@ namespace FlightDeals.Services
         private DateTime tokenExpiration;
         private string token;
         private readonly HttpClient client;
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration configuration;      
 
         public FlightOffersClient(HttpClient client, IConfiguration configuration)
         {
             this.client = client;
-            this.configuration = configuration;
+            this.configuration = configuration;            
         }
 
         private async Task<string> UpdateToken()
@@ -48,11 +48,8 @@ namespace FlightDeals.Services
             };
 
             var uri = configuration.GetSection("Urls").GetSection("FlightOffersSearch").GetSection("Authorization").Value;
-
             var responseJson = await client.PostAsync(uri, credentials);
             var response = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseJson);
-
-
             response.TryGetValue("access_token", out token);
             response.TryGetValue("expires_in", out string expiresIn);
             tokenExpiration = DateTime.Now.AddSeconds(Int32.Parse(expiresIn));
@@ -61,21 +58,14 @@ namespace FlightDeals.Services
         public async Task<string> GetFlightOffers(FlightSearchModel flightOffersModel)
         {
             await UpdateToken();
-            var uri = configuration.GetSection("Urls").GetSection("FlightOffersSearch").GetSection("Api").Value;
-
-
+          
             Dictionary<string, string> modelDict = flightOffersModel.ToDictionary();
-
             var json = JsonConvert.SerializeObject(flightOffersModel, Formatting.Indented,
                                                    new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
 
+            var uri = configuration.GetSection("Urls").GetSection("FlightOffersSearch").GetSection("Api").Value;
             var jsonResponse = await client.GetAsync(uri, token, json);
             return JObject.Parse(jsonResponse)["data"].ToString();
-
-
         }
-
-
-
     }
 }
