@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FlightDeals.Core.Models.FlightOffer
+namespace FlightDeals.Core.ApiModels.FlightOffers
 {
     public class IncludedCheckedBags
     {
@@ -24,6 +21,5 @@ namespace FlightDeals.Core.Models.FlightOffer
         /// </summary>
         [JsonProperty("weightUnit")]
         public string WeightUnit { get; set; }
-
     }
 }

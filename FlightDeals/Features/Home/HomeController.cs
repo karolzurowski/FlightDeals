@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using FlightDeals.Core.Models;
+using FlightDeals.Core.ApiModels;
 using FlightDeals.Services.Interfaces;
 
 namespace FlightDeals.Features.Home

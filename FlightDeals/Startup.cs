@@ -18,6 +18,7 @@ using System.IO;
 using FlightDeals.Data;
 using Microsoft.EntityFrameworkCore;
 using FlightDeals.Data.AirportProvider;
+using FlightDeals.Core.Mappers;
 
 namespace FlightDeals
 {
@@ -41,9 +42,7 @@ namespace FlightDeals
 
 
             });
-
-            services.AddAutoMapper(typeof(Startup));
-
+            services.AddAutoMapper(typeof(FlightSearchMappingProfile));
             services.AddMvc(o =>
             {
                 o.Conventions.Add(new FeatureConvention());
@@ -56,11 +55,10 @@ namespace FlightDeals
                 o.ViewLocationFormats.Add("/Features/{3}/{1}/{0}.cshtml");
                 o.ViewLocationFormats.Add("/Features/{3}/{0}.cshtml");
                 o.ViewLocationFormats.Add("/Features/Shared/{0}.cshtml");
-                o.ViewLocationExpanders.Add(new FeatureViewLocationExpander());                
+                o.ViewLocationExpanders.Add(new FeatureViewLocationExpander());
 
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
             services.AddHttpClient<IFlightOffersClient, FlightOffersClient>(
                 client =>
                 {
@@ -68,7 +66,6 @@ namespace FlightDeals
                 });
             services.AddDbContext<FlightDealsContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:FlightDealsDB"]));
             services.AddSingleton<IAirportProvider, AirportProvider>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +81,7 @@ namespace FlightDeals
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-         
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -92,7 +89,7 @@ namespace FlightDeals
             app.UseCors();
             app.UseEndpoints(routes =>
             {
-               // routes.MapDefaultControllerRoute();
+                // routes.MapDefaultControllerRoute();
                 routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }

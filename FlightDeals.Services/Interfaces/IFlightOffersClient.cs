@@ -1,4 +1,4 @@
-﻿using FlightDeals.Core.Models.FlightSearch;
+﻿using FlightDeals.Core.ApiModels.FlightSearch;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using FlightDeals.Core.Models.FlightOffer;
-using FlightDeals.Core.Models.FlightSearch;
+using FlightDeals.Core.ApiModels.FlightOffers;
+using FlightDeals.Core.ApiModels.FlightSearch;
 using FlightDeals.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Ibistic.Public.OpenAirportData;
-using Ibistic.Public.OpenAirportData.OpenFlightsData;
-using Ibistic.Public.OpenAirportData.MemoryDatabase;
 using FlightDeals.Data.AirportProvider;
 using FlightDeals.Data;
 using FlightDeals.Core.Extensions;
+using DomainFlightSearchModel = FlightDeals.Core.DomainModels.FlightSearch.FlightSearchModel;
 
 namespace FlightDeals.Features.FlightSearch
 {
@@ -35,21 +33,24 @@ namespace FlightDeals.Features.FlightSearch
         [HttpGet]
         public IActionResult Index()
         {
+
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(FlightSearchViewModel flightSearchViewModel)
+        public async Task<IActionResult> SearchForFlights(FlightSearchViewModel flightSearchViewModel)
         {
             if (ModelState.IsValid)
             {
-                var flightsearchModel = mapper.Map<FlightSearchViewModel, FlightSearchModel>(flightSearchViewModel);
+                var flightsearchModel = mapper.Map<DomainFlightSearchModel, FlightSearchModel>(flightSearchViewModel.FlightSearch);
 
                 var flightOffersJson = await flightOffersClient.GetFlightOffers(flightsearchModel);
 
-                List<FlightOfferModel> offers = JsonConvert.DeserializeObject<List<FlightOfferModel>>(flightOffersJson, new JsonSerializerSettings { Formatting = Formatting.Indented });
+                var offers = JsonConvert.DeserializeObject<List<FlightOfferModel>>(flightOffersJson, new JsonSerializerSettings { Formatting = Formatting.Indented });
 
-                return View("FlightOffers", offers);
+                return View("../FlightOffers/Index", offers);
+
+
             }
             return View();
         }

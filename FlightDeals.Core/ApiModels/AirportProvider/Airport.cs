@@ -1,11 +1,7 @@
-﻿
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace FlightDeals.Core.Models.AirportProvider
+namespace FlightDeals.Core.ApiModels.AirportProvider
 {
     public class Airport
     {
@@ -46,7 +42,6 @@ namespace FlightDeals.Core.Models.AirportProvider
         {
             return Name + ", " + City + ",  "+ Country;
         }
-
     }
 }
 

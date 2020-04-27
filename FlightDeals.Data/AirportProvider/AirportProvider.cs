@@ -1,5 +1,5 @@
 ﻿using FlightDeals.Core.Extensions;
-using FlightDeals.Core.Models.AirportProvider;
+using FlightDeals.Core.ApiModels.AirportProvider;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -56,5 +56,7 @@ namespace FlightDeals.Data.AirportProvider
                                                          .OrderByDescending(a => a.SelectionCounter)
                                                          .Take(fetchLimit);
         }
+
+
     }
 }

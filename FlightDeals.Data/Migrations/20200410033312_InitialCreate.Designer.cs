@@ -20,7 +20,7 @@ namespace FlightDeals.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("FlightDeals.Core.Models.AirportProvider.Airport", b =>
+            modelBuilder.Entity("FlightDeals.Core.ApiModels.AirportProvider.Airport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

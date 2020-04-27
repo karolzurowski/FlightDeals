@@ -2,12 +2,17 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace FlightDeals.Core.Models.FlightOffer
+namespace FlightDeals.Core.ApiModels.FlightOffers
 {
     public class Segment
     {
+        /// <summary>
+        /// Id of the segment
+        /// </summary>
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [JsonProperty("departure")]
         public FlightEndPoint Departure { get; set; }
 
@@ -42,26 +47,15 @@ namespace FlightDeals.Core.Models.FlightOffer
         [JsonProperty("stops")]
         public List<FlightStop> Stops { get; set; }
 
-        /// <summary>
-        /// Id of the segment
-        /// </summary>
-        [JsonProperty("id")]
-        public int Id { get; set; }
+        
 
         /// <summary>
         /// Number of stops
         /// </summary>
         [JsonProperty("numberOfStops")]
         public int NumberOfStops { get; set; }
-
-
-
-
-
-
     }
-
-
+    
     public class OperatingFlight
     {
         /// <summary>

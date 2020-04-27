@@ -1,13 +1,11 @@
 ﻿using FlightDeals.Core.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
-
 using System.Globalization;
 
-
-
-namespace FlightDeals.Core.Models.FlightSearch
+namespace FlightDeals.Core.ApiModels.FlightSearch
 {
     public class FlightSearchModel
     {
@@ -56,7 +54,6 @@ namespace FlightDeals.Core.Models.FlightSearch
             }
         }
 
-
         /// <summary>
         /// The number of adult travelers (age 12 or older on date of departure), REQUIRED
         /// </summary>
@@ -80,6 +77,7 @@ namespace FlightDeals.Core.Models.FlightSearch
         /// The accepted travel class is economy, premium economy, business or first class. If no travel class is specified, the search considers any travel class
         /// </summary>
         [JsonProperty("travelClass")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public TravelClass? TravelClass { get; set; } = null;
 
         /// <summary>
@@ -113,9 +111,5 @@ namespace FlightDeals.Core.Models.FlightSearch
         /// </summary>
         [JsonProperty("max")]
         public int? Max { get; set; } = null;
-
-
-
-
     }
 }

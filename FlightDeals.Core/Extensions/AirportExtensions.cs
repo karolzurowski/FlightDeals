@@ -1,8 +1,6 @@
-﻿using FlightDeals.Core.Models.AirportProvider;
+﻿using FlightDeals.Core.ApiModels.AirportProvider;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FlightDeals.Core.Extensions
 {

@@ -5,11 +5,16 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightDeals", "FlightDeals\FlightDeals.csproj", "{950EC748-9287-4A42-AC1E-297DCABE7F20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightDeals.Core", "FlightDeals.Core\FlightDeals.Core.csproj", "{F7DF4A2A-ADF8-4B19-A884-B4D40C46E669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightDeals.Core", "FlightDeals.Core\FlightDeals.Core.csproj", "{F7DF4A2A-ADF8-4B19-A884-B4D40C46E669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightDeals.Services", "FlightDeals.Services\FlightDeals.Services.csproj", "{E3AE9717-8D24-4643-BBAF-B1563DC48643}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightDeals.Services", "FlightDeals.Services\FlightDeals.Services.csproj", "{E3AE9717-8D24-4643-BBAF-B1563DC48643}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightDeals.Data", "FlightDeals.Data\FlightDeals.Data.csproj", "{7F9AFF46-D9DD-46B2-9CD0-5D6982BA16AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightDeals.Data", "FlightDeals.Data\FlightDeals.Data.csproj", "{7F9AFF46-D9DD-46B2-9CD0-5D6982BA16AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6377ED3-832F-42B8-9B7B-4C79DF4AA021}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿using FlightDeals.Core.Models.AirportProvider;
+﻿using FlightDeals.Core.ApiModels.AirportProvider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

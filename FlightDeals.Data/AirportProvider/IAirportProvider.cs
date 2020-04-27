@@ -1,4 +1,4 @@
-﻿using FlightDeals.Core.Models.AirportProvider;
+﻿using FlightDeals.Core.ApiModels.AirportProvider;
 using System.Collections.Generic;
 
 namespace FlightDeals.Data.AirportProvider

@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using FlightDeals.Core.Models.FlightSearch;
+using FlightDeals.Core.ApiModels.FlightSearch;
 using Newtonsoft.Json.Linq;
 
 namespace FlightDeals.Services

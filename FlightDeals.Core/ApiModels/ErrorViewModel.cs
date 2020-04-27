@@ -1,6 +1,4 @@
-using System;
-
-namespace FlightDeals.Core.Models
+namespace FlightDeals.Core.ApiModels
 {
     public class ErrorViewModel
     {

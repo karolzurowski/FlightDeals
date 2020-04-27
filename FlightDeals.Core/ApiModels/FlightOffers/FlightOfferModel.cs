@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace FlightDeals.Core.Models.FlightOffer
+namespace FlightDeals.Core.ApiModels.FlightOffers
 {
     public  partial class FlightOfferModel
     {
@@ -68,10 +67,5 @@ namespace FlightDeals.Core.Models.FlightOffer
 
         [JsonProperty("travelerPricings")]
         public List<TravelerPricing> TravelerPricings { get; set; }
-
-
-
-
-
     }
 }

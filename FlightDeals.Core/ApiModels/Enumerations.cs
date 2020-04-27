@@ -1,9 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FlightDeals.Core.Models.FlightOffer
+﻿
+namespace FlightDeals.Core.ApiModels
 {
+    public enum TravelClass
+    {
+        ECONOMY,
+        PREMIUM_ECONOMY,
+        BUSINESS,
+        FIRST
+    }
     public enum TravelerType
     {
         ADULT,
@@ -14,4 +18,5 @@ namespace FlightDeals.Core.Models.FlightOffer
         SEATED_INFANT,
         STUDENT
     }
+
 }

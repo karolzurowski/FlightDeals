@@ -1,0 +1,60 @@
+﻿@using FlightDeals.Features.FlightSearch
+@using FlightDeals.Core.ApiModels.FlightOffers
+@model List<FlightOfferModel>
+
+<div class="text-center">
+    <h1 class="display-4">RESULTS</h1>
+</div>
+
+
+<section class="container-fluid col-md-7 offset-2" >
+    @foreach (var offer in Model)
+    {
+        <section class="container-fluid">
+            @{
+                var offerName = "offer" + offer.Id;
+
+                        <button class="btn-block btn-light" type="button" data-toggle="collapse" data-target="@("#"+offerName)">
+                          <p>Source: @offer.Source</p>
+                          
+                           @foreach (var itinerary in offer.Itineraries)
+                            {
+                        
+                                @foreach (var segment in itinerary.Segments)
+                                {
+                                    <p>@segment.Departure.IataCode  to   @segment.Arrival.IataCode</p>
+                                    <p>
+                                        codes:  @segment.CarrierCode    or  @segment.Operating?.CarrierCode
+                                    </p>
+                                }
+
+                                <div>
+                                    <h4> From @itinerary.Segments[0].Departure.IataCode  to @itinerary.Segments[@itinerary.Segments.Count - 1].Arrival.IataCode</h4>
+                                    <b>Duration:@itinerary.Duration </b>
+                                    Stops : @itinerary.Segments.Count
+
+                                    <div class="collapse" id="@offerName">
+                                        @foreach (var segment in itinerary.Segments)
+                                        {
+                                            <section>
+                                                <b> From @segment.Departure.IataCode (@segment.Departure.At)  to  @segment.Arrival.IataCode (@segment.Arrival.At)</b>
+                                            </section>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </button>
+
+            }
+
+
+
+        </section>
+    }
+</section>
+
+@*@section Scripts{
+
+
+
+    }*@

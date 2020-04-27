@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json.Converters;
 
-namespace FlightDeals.Core.Models.FlightOffer
+namespace FlightDeals.Core.ApiModels.FlightOffers
 {
     public class FareDetailsBySegment
     {
@@ -15,7 +13,8 @@ namespace FlightDeals.Core.Models.FlightOffer
         /// Economy, premium economy, business or first class = ['ECONOMY', 'PREMIUM_ECONOMY', 'BUSINESS', 'FIRST']
         /// </summary>
         [JsonProperty("cabin")]
-        public string Cabin { get; set; } //todo change to enum
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TravelClass Cabin { get; set; } //todo change to enum
 
         /// <summary>
         /// Fare basis specifying the rules of a fare.Usually, though not always, is composed of the booking class code 

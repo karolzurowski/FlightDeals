@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace FlightDeals.Core.Models.FlightOffer
+namespace FlightDeals.Core.ApiModels.FlightOffers
 {
     public class Itinerary
     {
@@ -14,13 +14,8 @@ namespace FlightDeals.Core.Models.FlightOffer
         [JsonProperty( PropertyName ="duration",TypeNameHandling =TypeNameHandling.All)]
         public TimeSpan Duration { get; set; } 
 
-
         [JsonProperty("segments")]
-        public List<Segment> Segments { get; set; }
-
-    
-
-       
+        public List<Segment> Segments { get; set; }     
     }
 
 }
