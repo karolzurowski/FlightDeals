@@ -2,7 +2,7 @@
 namespace FlightDeals.Core.DomainModels.FlightOffers
 {
     public class FareDetailsBySegment
-    {      
+    {       
         public string SegmentId { get; set; }
 
         /// <summary>

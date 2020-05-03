@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FlightDeals.Core.ApiModels.FlightOffers
 {
-    public  partial class FlightOfferModel
+    public  partial class FlightOffer
     {
         [JsonProperty("id")]
         public int Id { get; set; }

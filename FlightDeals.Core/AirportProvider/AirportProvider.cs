@@ -1,23 +1,42 @@
 ﻿using FlightDeals.Core.Extensions;
 using FlightDeals.Core.ApiModels.AirportProvider;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Microsoft.Extensions.Configuration;
 
-namespace FlightDeals.Data.AirportProvider
+namespace FlightDeals.Core.AirportProvider
 {
     public class AirportProvider : IAirportProvider
     {
-        private readonly string airportsFile;
+        private readonly IConfiguration configuration;
 
-        public AirportProvider()
+        public AirportProvider(IConfiguration configuration)
         {
-            LoadJsonAirportFile();        
+            this.configuration = configuration;
+            LoadJsonAirportFile();
         }
+
         public List<Airport> Airports { get; private set; } = new List<Airport>();
+
+        public IEnumerable<Airport> FindAirports(string contains, int fetchLimit)
+        {
+            var comparison = StringComparison.InvariantCultureIgnoreCase;
+            return Airports.Where(a => a.IataCode.Contains(contains, comparison)
+                                                         || a.Name.Contains(contains, comparison)
+                                                         || a.City.Contains(contains, comparison))
+                                                         //  || a.Country.StartsWith(contains,copmarison))
+                                                         .OrderByDescending(a => a.SelectionCounter)
+                                                         .Take(fetchLimit);
+        }
+
+
+        public Airport FindAirport(string iataCode)
+        {
+            return Airports.Find(a => a.IataCode == iataCode);
+        }
+
         private void LoadJsonAirportFile()
         {
             string line;
@@ -27,7 +46,8 @@ namespace FlightDeals.Data.AirportProvider
             string countryName;
             string iataCode;
 
-            var file = new StreamReader(@"airports.cache");
+            var airportsFileName = configuration["AirportsFileName"];
+            var file = new StreamReader(airportsFileName);
             while ((line = file.ReadLine()) != null)
             {
                 line = line.Replace("\"", "");
@@ -46,17 +66,6 @@ namespace FlightDeals.Data.AirportProvider
                 }
             }
         }
-        public IEnumerable<Airport> FindAirports(string contains, int fetchLimit)
-        {
-            var comparison = StringComparison.InvariantCultureIgnoreCase;
-            return Airports.Where(a => a.IataCode.Contains(contains, comparison)
-                                                         || a.Name.Contains(contains, comparison)
-                                                         || a.City.Contains(contains, comparison))
-                                                         //  || a.Country.StartsWith(contains,copmarison))
-                                                         .OrderByDescending(a => a.SelectionCounter)
-                                                         .Take(fetchLimit);
-        }
-
 
     }
 }

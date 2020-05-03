@@ -5,6 +5,8 @@ namespace FlightDeals.Core.DomainModels.FlightOffers
 {
     public class FlightOffer
     {
+        public int Id { get; set; }
+
         public DateTime? LastTicketingDate { get; set; }
 
         public bool OneWay { get; set; }

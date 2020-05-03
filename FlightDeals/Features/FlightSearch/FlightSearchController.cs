@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FlightDeals.Core.ApiModels.FlightOffers;
@@ -8,10 +6,12 @@ using FlightDeals.Core.ApiModels.FlightSearch;
 using FlightDeals.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using FlightDeals.Data.AirportProvider;
+using FlightDeals.Core.AirportProvider;
 using FlightDeals.Data;
 using FlightDeals.Core.Extensions;
 using DomainFlightSearchModel = FlightDeals.Core.DomainModels.FlightSearch.FlightSearchModel;
+using DomainFlightOffersModel = FlightDeals.Core.DomainModels.FlightOffers.FlightOffer;
+using FlightDeals.Features.FlightOffers;
 
 namespace FlightDeals.Features.FlightSearch
 {
@@ -46,11 +46,13 @@ namespace FlightDeals.Features.FlightSearch
 
                 var flightOffersJson = await flightOffersClient.GetFlightOffers(flightsearchModel);
 
-                var offers = JsonConvert.DeserializeObject<List<FlightOfferModel>>(flightOffersJson, new JsonSerializerSettings { Formatting = Formatting.Indented });
+                var apiFlightOffers = JsonConvert.DeserializeObject<List<FlightOffer>>(flightOffersJson, new JsonSerializerSettings { Formatting = Formatting.Indented });
 
-                return View("../FlightOffers/Index", offers);
+                var domainFlightOffers = mapper.Map<List<FlightOffer>, List<DomainFlightOffersModel>>(apiFlightOffers);
 
+                var flightOffersViewModel = new FlightOffersViewModel(domainFlightOffers);
 
+                return View("../FlightOffers/Index", flightOffersViewModel); 
             }
             return View();
         }

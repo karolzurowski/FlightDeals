@@ -17,8 +17,8 @@ using FlightDeals.Services;
 using System.IO;
 using FlightDeals.Data;
 using Microsoft.EntityFrameworkCore;
-using FlightDeals.Data.AirportProvider;
 using FlightDeals.Core.Mappers;
+using FlightDeals.Core.AirportProvider;
 
 namespace FlightDeals
 {
@@ -42,7 +42,7 @@ namespace FlightDeals
 
 
             });
-            services.AddAutoMapper(typeof(FlightSearchMappingProfile));
+
             services.AddMvc(o =>
             {
                 o.Conventions.Add(new FeatureConvention());
@@ -66,10 +66,14 @@ namespace FlightDeals
                 });
             services.AddDbContext<FlightDealsContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:FlightDealsDB"]));
             services.AddSingleton<IAirportProvider, AirportProvider>();
+            services.AddSingleton(provider => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new FlightDealsMappingProfile(provider.GetService<IAirportProvider>()));
+            }).CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IAirportProvider airportProvider)
         {
             if (env.IsDevelopment())
             {
