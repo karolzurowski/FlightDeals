@@ -11,7 +11,7 @@
 
 
 <section class="container-fluid col-8 offset-2 searchFlightsForm">
-   
+
     <form method="post" asp-action="SearchForFlights" class="container-fluid" id="flightSearchForm">
         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -97,7 +97,19 @@
             FlightSeachUtils.setupAutoComplete();
             FlightSeachUtils.setIataCode($("#departureTextBox"), $("#departureIataCode"));
             FlightSeachUtils.setIataCode($("#arrivalTextBox"), $("#arrivalIataCode"));
-            $("#departureDate,#returnDate").datepicker({ dateFormat: 'yy-mm-dd' });
+
+            let dateToday = new Date();
+            var dates = $("#departureDate,#returnDate").datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: dateToday,
+                showAnim:"slideDown",
+                onSelect: function (selectedDate) {
+                    var option = this.id == "departureDate" ? "minDate" : "maxDate",
+                        instance = $(this).data("datepicker"),
+                        date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+                    dates.not(this).datepicker("option", option, date);
+                }
+            });
             $.validator.setDefaults({ ignore: null });
 
         });

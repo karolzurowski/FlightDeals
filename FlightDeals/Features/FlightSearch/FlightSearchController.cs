@@ -12,6 +12,8 @@ using FlightDeals.Core.Extensions;
 using DomainFlightSearchModel = FlightDeals.Core.DomainModels.FlightSearch.FlightSearchModel;
 using DomainFlightOffersModel = FlightDeals.Core.DomainModels.FlightOffers.FlightOffer;
 using FlightDeals.Features.FlightOffers;
+using System;
+using NLog;
 
 namespace FlightDeals.Features.FlightSearch
 {
@@ -21,6 +23,7 @@ namespace FlightDeals.Features.FlightSearch
         private readonly IMapper mapper;
         private readonly FlightDealsContext context;
         private readonly IAirportProvider airportProvider;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public FlightSearchController(IFlightOffersClient flightOffersClient, IMapper mapper, FlightDealsContext context, IAirportProvider airportProvider)
         {
@@ -42,17 +45,34 @@ namespace FlightDeals.Features.FlightSearch
         {
             if (ModelState.IsValid)
             {
-                var flightsearchModel = mapper.Map<DomainFlightSearchModel, FlightSearchModel>(flightSearchViewModel.FlightSearch);
+                try
+                {
+                    var flightsearchModel = mapper.Map<DomainFlightSearchModel, FlightSearchModel>(flightSearchViewModel.FlightSearch);
 
-                var flightOffersJson = await flightOffersClient.GetFlightOffers(flightsearchModel);
+                    var flightOffersJson = await flightOffersClient.GetFlightOffers(flightsearchModel);
 
-                var apiFlightOffers = JsonConvert.DeserializeObject<List<FlightOffer>>(flightOffersJson, new JsonSerializerSettings { Formatting = Formatting.Indented });
+                    var apiFlightOffers = JsonConvert.DeserializeObject<List<FlightOffer>>(flightOffersJson, new JsonSerializerSettings { Formatting = Formatting.Indented });
 
-                var domainFlightOffers = mapper.Map<List<FlightOffer>, List<DomainFlightOffersModel>>(apiFlightOffers);
+                    var domainFlightOffers = mapper.Map<List<FlightOffer>, List<DomainFlightOffersModel>>(apiFlightOffers);
 
-                var flightOffersViewModel = new FlightOffersViewModel(domainFlightOffers);
+                    var flightOffersViewModel = new FlightOffersViewModel(domainFlightOffers);
 
-                return View("../FlightOffers/Index", flightOffersViewModel); 
+                    return View("../FlightOffers/Index", flightOffersViewModel);
+                }
+                catch (SimpleHttpResponseException ex)
+                {
+                    var exc = ex.ToString();
+                    var exception = new Exception("Flight api did not replied with success status code", ex); //wraping in base exception to print in nLog
+                    //todo handle different types of error codes, mayber different views
+                    logger.Error("Flight api did not replied with success status code", exception);
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Error during flight offers fetch", ex);
+                    return View();
+                }
+
             }
             return View();
         }

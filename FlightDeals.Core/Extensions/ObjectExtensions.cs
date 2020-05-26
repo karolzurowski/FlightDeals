@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace FlightDeals.Core.Extensions
 {
@@ -46,6 +46,21 @@ namespace FlightDeals.Core.Extensions
             // Fail with exception
             throw new ArgumentException("{" + MethodInfo.GetCurrentMethod() + "} Error:\n\nThe supplied value type <" + type +
                 "> is not a publicly-visible type, so the default value cannot be retrieved");
+        }
+
+
+        public static Dictionary<string, string> ToDictionary(this object obj)
+        {
+            var dictionary = new Dictionary<string, string>();
+            var properties = obj.GetType().GetProperties();
+
+            foreach (var property in properties.Where(p => p.GetValue(obj) != null && !p.GetValue(obj).Equals(p.PropertyType.GetDefault())))
+            {
+                dictionary.Add(property.Name, property.GetValue(obj).ToString());
+            }
+
+            return dictionary;
+
         }
     }
 }

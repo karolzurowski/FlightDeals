@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +10,6 @@ using FlightDeals.Services.Interfaces;
 using FlightDeals.Features;
 using AutoMapper;
 using FlightDeals.Services;
-using System.IO;
 using FlightDeals.Data;
 using Microsoft.EntityFrameworkCore;
 using FlightDeals.Core.Mappers;
@@ -59,6 +54,7 @@ namespace FlightDeals
 
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+          
             services.AddHttpClient<IFlightOffersClient, FlightOffersClient>(
                 client =>
                 {
@@ -81,12 +77,13 @@ namespace FlightDeals
             }
             else
             {
-                app.UseExceptionHandler("Home/Error");
+                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+            app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
