@@ -5,49 +5,85 @@
 </div>
 
 
-<section class="container-fluid col-md-7 offset-2" >
-    @foreach (var offer in Model.FlightOffers)
-    {
-        <section class="container-fluid">
-            @{
-              
-                var offerName = "offer" + offer.Id;
+<section class="container-fluid col-md-9 offset-2 flight-offers">
+    <div id="flight-offers">
+        @foreach (var offer in Model.FlightOffers)
+        {
+            <section class="container-fluid">
+                @{
 
-                        <button class="btn-block btn-light" type="button" data-toggle="collapse" data-target="@("#"+offerName)">
-                         
-                          
-                           @foreach (var itinerary in offer.Itineraries)
-                            {
-                        
-                                @foreach (var segment in itinerary.Segments)
-                                {
-                                    <p>@segment.Departure.Airport.Name  to   @segment.Arrival.Airport.Name</p>
-                                    
-                                }
+                    var offerName = "offer" + offer.Id;
+
+                    <button class="btn-block btn-light btn-flight-offer" type="button" data-toggle="collapse" data-target="@("#"+offerName)">
+
+
+                        @foreach (var itinerary in offer.Itineraries)
+                        {
+                            var lastSegment = itinerary.Segments.Count - 1;
+                        <div class="row">
+
+                            <div class="col-2 offset-2">
+                                <div class="col-12"><b>  @itinerary.Segments[0].Departure.At.ToString("HH:mm")</b></div>
+                                <div class="col-12">
+                                    @itinerary.Segments[0].Departure.Airport.City (@itinerary.Segments[0].Departure.Airport.IataCode)
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="col-12"><b>@itinerary.DurationString</b></div>
+                                <div class="col-12"> <i class="fas fa-long-arrow-alt-right"></i></div>
+                                <div class="col-12">Stops :@itinerary.Stops</div>
+                            </div>
+                            <div class="col-2">
+                                <div class="col-12"><b>@itinerary.Segments[lastSegment].Arrival.At.ToString("HH:mm")</b></div>
+                                <div class="col-12">  @itinerary.Segments[lastSegment].Arrival.Airport.City (@itinerary.Segments[lastSegment].Arrival.Airport.IataCode)</div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                            <div class="offset-4 col-2">
+                             
+                            </div>
+                        </div>*@ 
+                                <div class="row">
+                                    <div class="col-4 offset-2">
+                                        <div class="collapse" id="@offerName" data-parent="#flight-offers">
+                                            @foreach (var segment in itinerary.Segments)
+                                            {
+                                                <section>
+                                                    <h6> From @segment.Departure.Airport.City (@segment.Departure.Airport.IataCode)  to  @segment.Arrival.Airport.City (@segment.Arrival.Airport.IataCode)</h6>
+                                                </section>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*@foreach (var segment in itinerary.Segments)
+                                    {
+                                        <p>@segment.Departure.Airport.Name  to   @segment.Arrival.Airport.Name</p>
+
+                                    }*@
 
                                 @*<div>
-                                    <h4> From @itinerary.Segments[0].Departure.IataCode  to @itinerary.Segments[@itinerary.Segments.Count - 1].Arrival.IataCode</h4>
-                                    <b>Duration:@itinerary.Duration </b>
-                                    Stops : @itinerary.Segments.Count
+                                        <h4> From @itinerary.Segments[0].Departure.IataCode  to @itinerary.Segments[@itinerary.Segments.Count - 1].Arrival.IataCode</h4>
+                                        <b>Duration:@itinerary.Duration </b>
+                                        Stops : @itinerary.Segments.Count
 
-                                    <div class="collapse" id="@offerName">
-                                        @foreach (var segment in itinerary.Segments)
-                                        {
-                                            <section>
-                                                <b> From @segment.Departure.IataCode (@segment.Departure.At)  to  @segment.Arrival.IataCode (@segment.Arrival.At)</b>
-                                            </section>
-                                        }
-                                    </div>
-                                </div>*@
-                            }
-                        </button>             
 
-            }
+                                    </div>*@
+                           
+                        }
+
+                    </button>
+
+                }
 
 
 
-        </section>
-    }
+
+            </section>
+        }
+    </div>
+
 </section>
 
 @*@section Scripts{

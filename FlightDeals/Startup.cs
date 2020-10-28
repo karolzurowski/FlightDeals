@@ -53,8 +53,9 @@ namespace FlightDeals
                 o.ViewLocationExpanders.Add(new FeatureViewLocationExpander());
 
             })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-          
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).
+            AddRazorRuntimeCompilation();
+
             services.AddHttpClient<IFlightOffersClient, FlightOffersClient>(
                 client =>
                 {
